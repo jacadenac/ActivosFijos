@@ -136,6 +136,37 @@ public class ValidateField {
     }
     
     /**
+     * Valida que el campo no sea nulo ni vacío
+     * @param fieldValue valor del campo
+     * @return true si el campo es nulo o vacío, false en caso contrario
+     */
+    public static boolean isNullOrEmpty(Object fieldValue){
+        if(fieldValue == null){
+            return true;
+        }
+        if(fieldValue instanceof String){
+            String fieldValueStr = String.valueOf(fieldValue);
+            if("".equals(fieldValueStr)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Valida el tamaño del campo
+     * @param fieldValue valor del campo
+     * @param maxSize
+     * @return true si el campo supera el tamaño máximo permitido, false en caso contrario
+     */
+    public static boolean isOutOfBounds(String fieldValue, int maxSize){
+        if(fieldValue != null){
+            return fieldValue.length() > maxSize;
+        }
+        return false;
+    }
+    
+    /**
      * 
      * @param appStatus
      * @param fieldName

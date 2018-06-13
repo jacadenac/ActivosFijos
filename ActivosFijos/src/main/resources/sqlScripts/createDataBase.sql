@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `assetdb`.`fixed_asset`
   weight DECIMAL(10, 2) NULL,
   high DECIMAL(10, 2) NULL,
   width DECIMAL(10, 2) NULL,
-  `long` DECIMAL(10, 2) NULL,
+  long_value DECIMAL(10, 2) NULL,
   purchase_value DECIMAL(20, 2) NULL,
   purchase_date DATE NULL,
   withdrawal_date DATE NULL,
@@ -215,32 +215,32 @@ ALTER TABLE person COMMENT = 'Persona propietaria del activo fijo';
 
 /* Add Foreign Key: city_area_fk */
 ALTER TABLE area ADD CONSTRAINT city_area_fk
-  FOREIGN KEY (city_id) REFERENCES assetdb.city (city_id)
+  FOREIGN KEY (city_id) REFERENCES city (city_id)
   ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-/* Add Foreign Key: fk_asset_owner_area */
-ALTER TABLE asset_owner ADD CONSTRAINT fk_asset_owner_area
-  FOREIGN KEY (asset_owner_id) REFERENCES assetdb.area (asset_owner_id)
-  ON UPDATE NO ACTION ON DELETE NO ACTION;
-
-/* Add Foreign Key: fk_asset_owner_person */
-ALTER TABLE asset_owner ADD CONSTRAINT fk_asset_owner_person
-  FOREIGN KEY (asset_owner_id) REFERENCES assetdb.person (asset_owner_id)
+/* Add Foreign Key: fk_area_asset_owner */
+ALTER TABLE area ADD CONSTRAINT fk_area_asset_owner
+  FOREIGN KEY (asset_owner_id) REFERENCES asset_owner (asset_owner_id)
   ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 /* Add Foreign Key: fk_fixed_asset_asset_owner */
 ALTER TABLE fixed_asset ADD CONSTRAINT fk_fixed_asset_asset_owner
-  FOREIGN KEY (asset_owner_id) REFERENCES assetdb.asset_owner (asset_owner_id)
+  FOREIGN KEY (asset_owner_id) REFERENCES asset_owner (asset_owner_id)
   ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 /* Add Foreign Key: fk_fixed_asset_asset_status */
 ALTER TABLE fixed_asset ADD CONSTRAINT fk_fixed_asset_asset_status
-  FOREIGN KEY (asset_status_id) REFERENCES assetdb.asset_status (asset_status_id)
+  FOREIGN KEY (asset_status_id) REFERENCES asset_status (asset_status_id)
   ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 /* Add Foreign Key: fk_fixed_asset_asset_type */
 ALTER TABLE fixed_asset ADD CONSTRAINT fk_fixed_asset_asset_type
-  FOREIGN KEY (asset_type_id) REFERENCES assetdb.asset_type (asset_type_id)
+  FOREIGN KEY (asset_type_id) REFERENCES asset_type (asset_type_id)
+  ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+/* Add Foreign Key: fk_person_asset_owner */
+ALTER TABLE person ADD CONSTRAINT fk_person_asset_owner
+  FOREIGN KEY (asset_owner_id) REFERENCES asset_owner (asset_owner_id)
   ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 
@@ -289,8 +289,6 @@ VALUES
 /* Initialize cities */
 INSERT INTO city (city_code,name)
 VALUES 
-    INSERT INTO city (city_code,name)
-VALUES 
     ('11001000','BOGOTA, D.C.'),
     ('05001000','MEDELLIN'),
     ('66001000','PEREIRA'),
@@ -324,7 +322,7 @@ INSERT INTO fixed_asset (
   weight,
   high,
   width,
-  `long`,
+  long_value,
   purchase_value,
   purchase_date,
   withdrawal_date,
@@ -366,8 +364,6 @@ INSERT INTO fixed_asset (
   'Café',
   'alejo'
 );
-
-
 
 
 

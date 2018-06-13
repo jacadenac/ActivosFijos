@@ -1,11 +1,12 @@
 package asd.prueba.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import java.util.Objects;
 
 /**
  *
- * @author Alejandro
+ * @author Alejandro Cadena
  * @version 1.0
  */
 public class AuthUser {
@@ -15,7 +16,9 @@ public class AuthUser {
     private String email;
     private String fullname;
     private boolean enabled;
+    @JsonIgnore
     private Date createdDate;
+    @JsonIgnore
     private Date updatedDate;
 
     public AuthUser() {

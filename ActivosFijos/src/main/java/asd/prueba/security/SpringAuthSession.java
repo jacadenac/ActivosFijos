@@ -20,9 +20,7 @@ public class SpringAuthSession {
      */
     public String getUserName(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth == null){
-            return "Usuario no autenticado";
-        }else if(auth.isAuthenticated()){
+        if(auth.isAuthenticated()){
             return auth.getName();
         }else{
             throw new AccessDeniedException("Access Denied Exception");
