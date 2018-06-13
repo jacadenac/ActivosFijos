@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:beans="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd
+">
+    <!--<context:property-placeholder location="classpath:profile.properties"/>
+    
+    <bean id="profile" class="java.lang.String">
+        <constructor-arg index="0" value="${spring.profiles.active}"/>
+    </bean>-->
+    
+    <!-- ====================================================== -->
+    <!-- import different variables according to active profile -->
+    <!-- ====================================================== -->
+    <beans profile="development">
+        <context:property-placeholder
+            ignore-resource-not-found="true"
+            location="classpath:appDev.properties,
+                      classpath:log4j2.properties" />
+    </beans>
+    <beans profile="test">
+        <context:property-placeholder
+            ignore-resource-not-found="true"
+            location="classpath:appTest.properties,
+                      classpath:log4j2.properties" />
+    </beans>
+    <beans profile="production">
+        <context:property-placeholder
+            ignore-resource-not-found="true"
+            location="classpath:appProd.properties,
+                      classpath:log4j2.properties" />
+    </beans>
+
+</beans>
